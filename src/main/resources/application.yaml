@@ -12,3 +12,14 @@ spring:
     properties:
       hibernate:
         show_sql: true
+  mail:
+    host: smtp.example.com
+    port: 587
+    username: user@example.com
+    password: mailpassword
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
