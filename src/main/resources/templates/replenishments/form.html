@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Replenishment Form</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="d-flex">
+    <nav class="bg-dark text-white p-3" style="min-width:200px;min-height:100vh;">
+        <h5 class="text-white">Menu</h5>
+        <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link text-white" th:href="@{/users}">Users</a></li>
+            <li class="nav-item"><a class="nav-link text-white" th:href="@{/cards}">Cards</a></li>
+            <li class="nav-item"><a class="nav-link text-white" th:href="@{/scores}">Scores</a></li>
+            <li class="nav-item"><a class="nav-link text-white" th:href="@{/applications}">Applications</a></li>
+            <li class="nav-item"><a class="nav-link text-white" th:href="@{/withdrawals}">Withdrawals</a></li>
+            <li class="nav-item"><a class="nav-link text-white" th:href="@{/transfers}">Transfers</a></li>
+            <li class="nav-item"><a class="nav-link text-white" th:href="@{/replenishments}">Replenishments</a></li>
+            <li class="nav-item"><a class="nav-link text-white" th:href="@{/reports}">Reports</a></li>
+        </ul>
+    </nav>
+    <main class="p-4 flex-grow-1">
+        <h2 th:text="${id} ? 'Edit Replenishment' : 'Create Replenishment'"></h2>
+        <form th:action="${id} ? @{/replenishments/{id}(id=${id})} : @{/replenishments}" method="post">
+            <div class="mb-3">
+                <label class="form-label">Sum</label>
+                <input type="number" class="form-control" name="sum" th:value="${replenishment.sum}"/>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Card</label>
+                <select class="form-select" name="cardId">
+                    <option th:each="card : ${cards}"
+                            th:value="${card.id}"
+                            th:text="${card.number}"></option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a th:href="@{/replenishments}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </main>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

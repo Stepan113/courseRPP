@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Reports</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="d-flex">
+    <nav class="bg-dark text-white p-3" style="min-width:200px;min-height:100vh;">
+        <h5 class="text-white">Menu</h5>
+        <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link text-white" th:href="@{/users}">Users</a></li>
+            <li class="nav-item"><a class="nav-link text-white" th:href="@{/cards}">Cards</a></li>
+            <li class="nav-item"><a class="nav-link text-white" th:href="@{/scores}">Scores</a></li>
+            <li class="nav-item"><a class="nav-link text-white" th:href="@{/applications}">Applications</a></li>
+            <li class="nav-item"><a class="nav-link text-white" th:href="@{/withdrawals}">Withdrawals</a></li>
+            <li class="nav-item"><a class="nav-link text-white" th:href="@{/transfers}">Transfers</a></li>
+            <li class="nav-item"><a class="nav-link text-white" th:href="@{/replenishments}">Replenishments</a></li>
+            <li class="nav-item"><a class="nav-link text-white" th:href="@{/reports}">Reports</a></li>
+        </ul>
+    </nav>
+    <main class="p-4 flex-grow-1">
+        <h2>Reports</h2>
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <h4>Entity Counts</h4>
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr><td>Users</td><td th:text="${userCount}"></td></tr>
+                        <tr><td>Cards</td><td th:text="${cardCount}"></td></tr>
+                        <tr><td>Scores</td><td th:text="${scoreCount}"></td></tr>
+                        <tr><td>Applications for Cash</td><td th:text="${applicationCount}"></td></tr>
+                        <tr><td>Cash Withdrawals</td><td th:text="${withdrawalCount}"></td></tr>
+                        <tr><td>Money Transfers</td><td th:text="${transferCount}"></td></tr>
+                        <tr><td>Replenishment Operations</td><td th:text="${replenishmentCount}"></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <h4>Financial Totals</h4>
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr><td>Total Withdrawals</td><td th:text="${totalWithdrawals}"></td></tr>
+                        <tr><td>Total Replenishments</td><td th:text="${totalReplenishments}"></td></tr>
+                        <tr><td>Total Transfers</td><td th:text="${totalTransfers}"></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
