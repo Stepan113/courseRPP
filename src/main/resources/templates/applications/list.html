@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Applications for Cash</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-dark bg-success">
+    <div class="container">
+        <a class="navbar-brand" href="/cards">← Cards</a>
+        <div class="navbar-nav ms-auto">
+            <a class="nav-link text-white" href="/auth/logout">Logout</a>
+        </div>
+    </div>
+</nav>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Applications for Cash (Заявки)</h2>
+        <a href="/applications/new" class="btn btn-success">+ New</a>
+    </div>
+    <table class="table table-striped">
+        <thead class="table-success">
+        <tr>
+            <th>ID</th>
+            <th>Withdrawal Amount</th>
+            <th>Delay</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="app : ${applications}">
+            <td th:text="${app.id}"></td>
+            <td th:text="${app.withdrawalAmount}"></td>
+            <td th:text="${app.delay}"></td>
+            <td>
+                <a th:href="@{/applications/{id}/edit(id=${app.id})}" class="btn btn-sm btn-warning">Edit</a>
+                <form th:action="@{/applications/{id}/delete(id=${app.id})}" method="post" style="display:inline">
+                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete?')">Delete</button>
+                </form>
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(applications)}">
+            <td colspan="4" class="text-center text-muted">No applications found</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
