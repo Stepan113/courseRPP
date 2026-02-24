@@ -309,9 +309,6 @@ public class ReportService {
                     }
 
                     y -= lineHeight;
-                    if (y < 50) {
-                        y = 750;
-                    }
 
                     cs.beginText();
                     cs.setFont(fontBold, 12);

@@ -63,16 +63,16 @@
 <div th:replace="~{layout/base :: scripts}"></div>
 <script>
     function downloadReport(type) {
-        var checkboxes = document.querySelectorAll('input[name="scoreIds"]:checked');
-        if (checkboxes.length === 0) {
+        var selectedCheckboxes = document.querySelectorAll('input[name="scoreIds"]:checked');
+        if (selectedCheckboxes.length === 0) {
             alert('Пожалуйста, выберите хотя бы один счёт.');
             return;
         }
-        var params = [];
-        checkboxes.forEach(function(cb) {
-            params.push('scoreIds=' + encodeURIComponent(cb.value));
+        var scoreIdParams = [];
+        selectedCheckboxes.forEach(function(cb) {
+            scoreIdParams.push('scoreIds=' + encodeURIComponent(cb.value));
         });
-        window.location.href = '/reports/' + type + '?' + params.join('&');
+        window.location.href = '/reports/' + type + '?' + scoreIdParams.join('&');
     }
 </script>
 </body>
