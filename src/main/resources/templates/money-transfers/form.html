@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Денежный перевод</title>
+    <style>body { font-family: Arial, sans-serif; margin: 20px; } label { display: block; margin-top: 10px; }</style>
+</head>
+<body>
+<h1 th:text="${id} ? 'Редактировать перевод' : 'Новый денежный перевод'">Перевод</h1>
+<a th:href="@{/money-transfers}">Назад</a>
+<form th:action="${id} ? @{/money-transfers/{id}(id=${id})} : @{/money-transfers}" method="post" th:object="${moneyTransfer}">
+    <label>Сумма: <input type="number" th:field="*{sum}"/></label>
+    <br/><button type="submit">Сохранить</button>
+</form>
+</body>
+</html>

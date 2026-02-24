@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Карта</title>
+    <style>body { font-family: Arial, sans-serif; margin: 20px; }</style>
+</head>
+<body>
+<h1>Карта</h1>
+<a th:href="@{/cards}">Назад</a>
+<p><b>ID:</b> <span th:text="${card.id}"></span></p>
+<p><b>Номер:</b> <span th:text="${card.number}"></span></p>
+<p><b>Баланс:</b> <span th:text="${card.balance}"></span></p>
+<p><b>CVC:</b> <span th:text="${card.cvc}"></span></p>
+<p><b>Пользователь:</b> <span th:text="${card.userLogin}"></span></p>
+<a th:href="@{/cards/{id}/edit(id=${card.id})}">Редактировать</a>
+<form th:action="@{/cards/{id}/delete(id=${card.id})}" method="post" style="display:inline">
+    <button type="submit" onclick="return confirm('Удалить?')">Удалить</button>
+</form>
+</body>
+</html>

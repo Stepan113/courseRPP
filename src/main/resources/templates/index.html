@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Banking System</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        nav a { margin-right: 15px; }
+        h1 { color: #333; }
+    </style>
+</head>
+<body>
+<h1>Banking System</h1>
+<nav>
+    <a th:href="@{/users}">Пользователи</a>
+    <a th:href="@{/cards}">Карты</a>
+    <a th:href="@{/scores}">Счета</a>
+    <a th:href="@{/applications-for-cash}">Заявки на наличные</a>
+    <a th:href="@{/cash-withdrawals}">Снятия наличных</a>
+    <a th:href="@{/money-transfers}">Денежные переводы</a>
+    <a th:href="@{/replenishment-operations}">Пополнения</a>
+    <a th:href="@{/reports}">Отчёты</a>
+</nav>
+</body>
+</html>

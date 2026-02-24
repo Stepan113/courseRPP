@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Пользователь</title>
+    <style>body { font-family: Arial, sans-serif; margin: 20px; }</style>
+</head>
+<body>
+<h1>Пользователь</h1>
+<a th:href="@{/users}">Назад</a>
+<p><b>ID:</b> <span th:text="${user.id}"></span></p>
+<p><b>Логин:</b> <span th:text="${user.login}"></span></p>
+<a th:href="@{/users/{id}/edit(id=${user.id})}">Редактировать</a>
+<form th:action="@{/users/{id}/delete(id=${user.id})}" method="post" style="display:inline">
+    <button type="submit" onclick="return confirm('Удалить?')">Удалить</button>
+</form>
+</body>
+</html>
