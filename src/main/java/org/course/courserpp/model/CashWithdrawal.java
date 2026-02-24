@@ -5,7 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.Data;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -33,6 +34,10 @@ public class CashWithdrawal {
     @CreationTimestamp
     @Column(name = "created_at")
     private Date createdAt;
+
+    @ManyToOne
+    @JoinColumn(name = "application_for_cash_id")
+    private ApplicationForCash applicationForCash;
 
     @Override
     public final boolean equals(Object object) {

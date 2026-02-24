@@ -28,6 +28,7 @@ public class User {
     @Column(unique = true)
     private String login;
     private String password;
+    private String email;
 
     @OneToMany(mappedBy = "user")
     @ToString.Exclude
