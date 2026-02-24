@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Cards</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+    <div class="container">
+        <a class="navbar-brand" href="/dashboard">CourseRPP</a>
+        <div class="navbar-nav ms-auto">
+            <a class="nav-link text-white" href="/applications">Applications</a>
+            <a class="nav-link text-white" href="/replenishments">Replenishments</a>
+            <span class="navbar-text me-3 text-white ms-3" sec:authentication="name"></span>
+            <a class="nav-link text-white" th:href="@{/auth/logout}">Logout</a>
+        </div>
+    </div>
+</nav>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Cards (Карты)</h2>
+        <a href="/cards/new" class="btn btn-success">+ New Card</a>
+    </div>
+    <table class="table table-striped table-hover">
+        <thead class="table-success">
+        <tr>
+            <th>Card Number</th>
+            <th>Balance</th>
+            <th>CVC</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="card : ${cards}">
+            <td th:text="${card.number}"></td>
+            <td th:text="${card.balance}"></td>
+            <td th:text="${card.CVC}"></td>
+            <td>
+                <a th:href="@{/cards/{id}/edit(id=${card.id})}" class="btn btn-sm btn-warning">Edit</a>
+                <form th:action="@{/cards/{id}/delete(id=${card.id})}" method="post" style="display:inline">
+                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete?')">Delete</button>
+                </form>
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(cards)}">
+            <td colspan="4" class="text-center text-muted">No cards found</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
