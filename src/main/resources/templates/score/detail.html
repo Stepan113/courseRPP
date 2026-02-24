@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Детали счета</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+</head>
+<body>
+<nav th:replace="~{layout/base :: navbar}"></nav>
+<div class="container mt-4">
+    <a href="/scores" class="btn btn-outline-secondary mb-3">&larr; Назад к счетам</a>
+
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Счет: <span th:text="${score.number}"></span></h5>
+        </div>
+        <div class="card-body">
+            <p><strong>Баланс:</strong> <span th:text="${score.balance}"></span></p>
+            <p><strong>Валюта:</strong> <span th:text="${score.currency}"></span></p>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header bg-warning">
+            <h5 class="mb-0">Снятие наличных</h5>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-striped mb-0">
+                <thead>
+                <tr>
+                    <th>Сумма</th>
+                    <th>Дата</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="cw : ${cashWithdrawals}">
+                    <td th:text="${cw.withdrawalAmount}"></td>
+                    <td th:text="${cw.createdAt}"></td>
+                </tr>
+                <tr th:if="${#sets.isEmpty(cashWithdrawals)}">
+                    <td colspan="2" class="text-center text-muted">Нет операций</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header bg-info text-white">
+            <h5 class="mb-0">Переводы денег</h5>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-striped mb-0">
+                <thead>
+                <tr>
+                    <th>Сумма</th>
+                    <th>Дата</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="mt : ${moneyTransfers}">
+                    <td th:text="${mt.sum}"></td>
+                    <td th:text="${mt.createdAt}"></td>
+                </tr>
+                <tr th:if="${#sets.isEmpty(moneyTransfers)}">
+                    <td colspan="2" class="text-center text-muted">Нет переводов</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header bg-secondary text-white">
+            <h5 class="mb-0">Отправить PDF-отчет по email</h5>
+        </div>
+        <div class="card-body">
+            <form method="post" action="/reports/email">
+                <input type="hidden" name="scoreId" th:value="${score.id}">
+                <div class="mb-3">
+                    <label class="form-label">Email адрес</label>
+                    <input type="email" name="email" class="form-control" placeholder="example@mail.com" required>
+                </div>
+                <button type="submit" class="btn btn-secondary">Отправить отчет</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div th:replace="~{layout/base :: scripts}"></div>
+</body>
+</html>
