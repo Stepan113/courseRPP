@@ -28,11 +28,16 @@ import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 @Service
 public class ReportService {
+
+    private static final DateTimeFormatter DATE_FORMATTER =
+            DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
 
     private final CardRepository cardRepository;
     private final ScoreRepository scoreRepository;
@@ -144,15 +149,13 @@ public class ReportService {
         if (withdrawals.isEmpty()) {
             document.add(new Paragraph("Нет данных", normalFont));
         } else {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
             PdfPTable table = new PdfPTable(2);
             table.setWidthPercentage(100);
             table.addCell(new PdfPCell(new Phrase("Сумма снятия", normalFont)));
             table.addCell(new PdfPCell(new Phrase("Дата", normalFont)));
             for (CashWithdrawal w : withdrawals) {
                 table.addCell(new PdfPCell(new Phrase(String.valueOf(w.getWithdrawalAmount()), normalFont)));
-                table.addCell(new PdfPCell(new Phrase(
-                        w.getCreatedAt() != null ? sdf.format(w.getCreatedAt()) : "-", normalFont)));
+                table.addCell(new PdfPCell(new Phrase(formatDate(w.getCreatedAt()), normalFont)));
             }
             document.add(table);
         }
@@ -165,15 +168,13 @@ public class ReportService {
         if (transfers.isEmpty()) {
             document.add(new Paragraph("Нет данных", normalFont));
         } else {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
             PdfPTable table = new PdfPTable(2);
             table.setWidthPercentage(100);
             table.addCell(new PdfPCell(new Phrase("Сумма", normalFont)));
             table.addCell(new PdfPCell(new Phrase("Дата", normalFont)));
             for (MoneyTransfer t : transfers) {
                 table.addCell(new PdfPCell(new Phrase(String.valueOf(t.getSum()), normalFont)));
-                table.addCell(new PdfPCell(new Phrase(
-                        t.getCreatedAt() != null ? sdf.format(t.getCreatedAt()) : "-", normalFont)));
+                table.addCell(new PdfPCell(new Phrase(formatDate(t.getCreatedAt()), normalFont)));
             }
             document.add(table);
         }
@@ -186,18 +187,26 @@ public class ReportService {
         if (operations.isEmpty()) {
             document.add(new Paragraph("Нет данных", normalFont));
         } else {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
             PdfPTable table = new PdfPTable(2);
             table.setWidthPercentage(100);
             table.addCell(new PdfPCell(new Phrase("Сумма", normalFont)));
             table.addCell(new PdfPCell(new Phrase("Дата", normalFont)));
             for (ReplenishmentOperation op : operations) {
                 table.addCell(new PdfPCell(new Phrase(String.valueOf(op.getSum()), normalFont)));
-                table.addCell(new PdfPCell(new Phrase(
-                        op.getCreatedAt() != null ? sdf.format(op.getCreatedAt()) : "-", normalFont)));
+                table.addCell(new PdfPCell(new Phrase(formatDate(op.getCreatedAt()), normalFont)));
             }
             document.add(table);
         }
         document.add(new Paragraph(" "));
+    }
+
+    private String formatDate(Date date) {
+        if (date == null) {
+            return "-";
+        }
+        return date.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime()
+                .format(DATE_FORMATTER);
     }
 }
