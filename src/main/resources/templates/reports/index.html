@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Отчёты</title>
+    <style>body { font-family: Arial, sans-serif; margin: 20px; } ul { list-style: none; padding: 0; } li { margin: 10px 0; }</style>
+</head>
+<body>
+<h1>Отчёты</h1>
+<a th:href="@{/}">Главная</a>
+<ul>
+    <li><a th:href="@{/reports/cash-withdrawals}">Отчёт по снятиям наличных</a></li>
+    <li><a th:href="@{/reports/money-transfers}">Отчёт по денежным переводам</a></li>
+    <li><a th:href="@{/reports/replenishment-operations}">Отчёт по операциям пополнения</a></li>
+</ul>
+</body>
+</html>

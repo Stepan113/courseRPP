@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Заявка на наличные</title>
+    <style>body { font-family: Arial, sans-serif; margin: 20px; } label { display: block; margin-top: 10px; }</style>
+</head>
+<body>
+<h1 th:text="${id} ? 'Редактировать заявку' : 'Новая заявка на наличные'">Заявка</h1>
+<a th:href="@{/applications-for-cash}">Назад</a>
+<form th:action="${id} ? @{/applications-for-cash/{id}(id=${id})} : @{/applications-for-cash}" method="post" th:object="${application}">
+    <label>Задержка (дни): <input type="number" th:field="*{delay}"/></label>
+    <label>Сумма снятия: <input type="number" th:field="*{withdrawalAmount}"/></label>
+    <br/><button type="submit">Сохранить</button>
+</form>
+</body>
+</html>

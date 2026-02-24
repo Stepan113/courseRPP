@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Денежный перевод</title>
+    <style>body { font-family: Arial, sans-serif; margin: 20px; }</style>
+</head>
+<body>
+<h1>Денежный перевод</h1>
+<a th:href="@{/money-transfers}">Назад</a>
+<p><b>ID:</b> <span th:text="${moneyTransfer.id}"></span></p>
+<p><b>Сумма:</b> <span th:text="${moneyTransfer.sum}"></span></p>
+<p><b>Дата создания:</b> <span th:text="${moneyTransfer.createdAt}"></span></p>
+<a th:href="@{/money-transfers/{id}/edit(id=${moneyTransfer.id})}">Редактировать</a>
+<form th:action="@{/money-transfers/{id}/delete(id=${moneyTransfer.id})}" method="post" style="display:inline">
+    <button type="submit" onclick="return confirm('Удалить?')">Удалить</button>
+</form>
+</body>
+</html>

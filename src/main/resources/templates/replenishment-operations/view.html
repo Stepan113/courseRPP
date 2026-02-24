@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Операция пополнения</title>
+    <style>body { font-family: Arial, sans-serif; margin: 20px; }</style>
+</head>
+<body>
+<h1>Операция пополнения</h1>
+<a th:href="@{/replenishment-operations}">Назад</a>
+<p><b>ID:</b> <span th:text="${replenishmentOperation.id}"></span></p>
+<p><b>Сумма:</b> <span th:text="${replenishmentOperation.sum}"></span></p>
+<p><b>Дата создания:</b> <span th:text="${replenishmentOperation.createdAt}"></span></p>
+<a th:href="@{/replenishment-operations/{id}/edit(id=${replenishmentOperation.id})}">Редактировать</a>
+<form th:action="@{/replenishment-operations/{id}/delete(id=${replenishmentOperation.id})}" method="post" style="display:inline">
+    <button type="submit" onclick="return confirm('Удалить?')">Удалить</button>
+</form>
+</body>
+</html>

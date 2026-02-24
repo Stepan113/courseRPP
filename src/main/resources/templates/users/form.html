@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Пользователь</title>
+    <style>body { font-family: Arial, sans-serif; margin: 20px; } label { display: block; margin-top: 10px; }</style>
+</head>
+<body>
+<h1 th:text="${id} ? 'Редактировать пользователя' : 'Новый пользователь'">Пользователь</h1>
+<a th:href="@{/users}">Назад</a>
+<form th:action="${id} ? @{/users/{id}(id=${id})} : @{/users}" method="post" th:object="${user}">
+    <label>Логин: <input type="text" th:field="*{login}" required/></label>
+    <label>Пароль: <input type="password" th:field="*{password}"/></label>
+    <br/><button type="submit">Сохранить</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Карта</title>
+    <style>body { font-family: Arial, sans-serif; margin: 20px; } label { display: block; margin-top: 10px; }</style>
+</head>
+<body>
+<h1 th:text="${id} ? 'Редактировать карту' : 'Новая карта'">Карта</h1>
+<a th:href="@{/cards}">Назад</a>
+<form th:action="${id} ? @{/cards/{id}(id=${id})} : @{/cards}" method="post" th:object="${card}">
+    <label>Номер: <input type="text" th:field="*{number}" required/></label>
+    <label>Баланс: <input type="number" th:field="*{balance}"/></label>
+    <label>CVC: <input type="text" th:field="*{cvc}"/></label>
+    <label>Пользователь:
+        <select th:field="*{userId}">
+            <option value="">-- Выберите --</option>
+            <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.login}"></option>
+        </select>
+    </label>
+    <br/><button type="submit">Сохранить</button>
+</form>
+</body>
+</html>
